@@ -8,8 +8,8 @@ import InputText from "../../Input/InputText";
 import axios from "axios";
 //import { toast } from "react-toastify";
 
-const FormDataEntitas = () => {
-  const [form, setForm] = useState({
+const initForm = 
+    {
     jenis_pemberitahuan: "",
     jenis_identitas: "",
     nib: "",
@@ -24,7 +24,10 @@ const FormDataEntitas = () => {
     telp: "",
     email: "",
     status: "",
-  });
+  }
+
+const FormDataEntitas = () => {
+  const [form, setForm] = useState(initForm);
 
   const handleChange = (e) => {
     setForm({
@@ -60,6 +63,7 @@ const FormDataEntitas = () => {
             })
         } catch (err) {
             //toast.error(`${err}`)
+            await setForm(initForm)
             console.log(err)
         }
       }

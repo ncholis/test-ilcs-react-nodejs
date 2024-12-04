@@ -20,14 +20,27 @@ function calculate(res) {
   return res;
 }
 
-app.get("/api/data_utama", async (req, res) => {
+app.get("/api/data_utama/:nomor_pengajuan", async (req, res) => {
+  nomor_pengajuan = req.params.nomor_pengajuan || ''
+  if (!nomor_pengajuan) {
+    return
+  }
+
   try {
     const response = await axios.get(
-      "https://api-hub.ilcs.co.id/test/v2/dataUtama?nomor_pengajuan=20120B388FAE20240402000001"
+      `https://api-hub.ilcs.co.id/test/v2/dataUtama?nomor_pengajuan=${nomor_pengajuan}`
     );
+
+    if (response.data && response.data.code == '404') {
+      res.status(404).json({
+        message: "Something wrong, Please try again later.",
+      });
+      return
+    }
 
     res.status(200).json(response.data);
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       message: "Something wrong, Please try again later.",
     });

@@ -9,9 +9,8 @@ import InputText from "../../Input/InputText";
 import InputDropDown from "../../Input/InputDropdown";
 import { toast } from "react-toastify";
 
-
 const FormDataUtama = () => {
-  const [form, setForm] = useState({
+  const initForm = {
     no_pengajuan: "",
     tgl_pengajuan: "",
     no_pendaftaran: "",
@@ -22,7 +21,8 @@ const FormDataUtama = () => {
     jenis_import: "",
     cara_pembayaran: "",
     transaksi: "",
-  });
+  };
+  const [form, setForm] = useState(initForm);
 
   const handleChange = (e) => {
     setForm({
@@ -31,34 +31,43 @@ const FormDataUtama = () => {
     });
   };
 
-  useEffect(() => {
-      async function fetchData () {
-        try {
-            const res = await (await axios.get("http://127.0.0.1:3000/api/data_utama"))
-            if (res.status !== 200 && res.status !== 201) {
-                throw new Error("Server Not Ok");
-            }
+  const handleSubmit = async (e) => {
+    if (e && e.key !== "Enter") {
+      return;
+    }
 
-            const data = res.data.data
-            await setForm({
-                no_pengajuan: data['nomor_pengajuan'],
-                tgl_pengajuan: data['tanggal_pengajuan'],
-                no_pendaftaran: data["nomor_pendaftaran"],
-                tgl_pendaftaran: data["tanggal_pendaftaran"],
-                kantor_pabean: data["ur_pabean_asal"],
-                skep_fasilitas: data["kd_skep_fasilitas"],
-                jenis_pib: data["jenis_pib"],
-                jenis_import: data["kd_jenis_import"],
-                cara_pembayaran: data["ur_cara_bayar"],
-                transaksi: data["Transaksi"],
-            })
-        } catch (err) {
-            toast.error(`${err}`)
-        }
+    if (form && !form.no_pengajuan) {
+      return;
+    }
+
+    try {
+      const res = await await axios.get(
+        `http://127.0.0.1:3000/api/data_utama/${form.no_pengajuan}`
+      );
+      if (res.status !== 200 && res.status !== 201) {
+        throw new Error("Server Not Ok");
       }
-    
-      fetchData()
-  }, []);
+
+      const data = res.data.data;
+      await setForm({
+        no_pengajuan: data["nomor_pengajuan"],
+        tgl_pengajuan: data["tanggal_pengajuan"],
+        no_pendaftaran: data["nomor_pendaftaran"],
+        tgl_pendaftaran: data["tanggal_pendaftaran"],
+        kantor_pabean: data["ur_pabean_asal"],
+        skep_fasilitas: data["kd_skep_fasilitas"],
+        jenis_pib: data["jenis_pib"],
+        jenis_import: data["kd_jenis_import"],
+        cara_pembayaran: data["ur_cara_bayar"],
+        transaksi: data["Transaksi"],
+      });
+    } catch (err) {
+      await setForm(initForm);
+      toast.error(`${err}`);
+    }
+  };
+
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -70,6 +79,7 @@ const FormDataUtama = () => {
               label="Nomer Pengajuan"
               value={form.no_pengajuan}
               onChange={handleChange}
+              onSubmit={handleSubmit}
             ></InputText>
           </div>
           <div className="column">

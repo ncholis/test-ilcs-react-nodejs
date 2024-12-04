@@ -19,7 +19,7 @@ const FormDataPungutan = () => {
     }, 2000);
   };
 
-  const [form, setForm] = useState({
+  const initForm = {
     incoterms: "",
     valuta: "",
     kurs: 0.0,
@@ -36,7 +36,9 @@ const FormDataPungutan = () => {
     bruto: 0.0,
     netto: 0.0,
     flag_kontainer: "",
-  });
+  }
+
+  const [form, setForm] = useState(initForm);
 
   const handleChange = (e) => {
     setForm({
@@ -73,6 +75,7 @@ const FormDataPungutan = () => {
           flag_kontainer: data["ur_flag_curah"],
         });
       } catch (err) {
+        await setForm(initForm)
         toast.error(`${err}`);
       }
     }

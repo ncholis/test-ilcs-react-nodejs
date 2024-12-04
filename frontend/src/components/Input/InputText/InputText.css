@@ -1,0 +1,14 @@
+.input-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.input-text {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 9px;
+  outline: none;
+  font-size: 15px;
+}

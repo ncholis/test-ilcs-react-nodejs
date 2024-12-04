@@ -1,0 +1,79 @@
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #03265e;
+    color: white;
+}
+
+.navbar-logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.navbar-right-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff; /* Placeholder untuk avatar */
+}
+
+.navbar-notification {
+  position: relative;
+  font-size: 18px;
+}
+
+.navbar-time {
+  font-size: 16px;
+}
+
+.navbar-unread-indicator {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+/* Breadcrumb */
+
+.breadcrumb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: white;
+  color: #333;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+.breadcrumb-left {
+  font-weight: bold;
+}
+
+.breadcrumb-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.breadcrumb-link {
+  color: #007BFF;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.breadcrumb-home span {
+  font-size: 16px;
+}

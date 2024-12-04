@@ -6,8 +6,19 @@ import InputText from "../../Input/InputText";
 import axios from "axios";
 import { toast } from "react-toastify";
 import InputDropDown from "../../Input/InputDropdown";
+import RefreshButton from "../../Buttons/RefreshButton";
 
 const FormDataPungutan = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleRefresh = () => {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  };
+
   const [form, setForm] = useState({
     incoterms: "",
     valuta: "",
@@ -92,6 +103,9 @@ const FormDataPungutan = () => {
               value={form.kurs}
               onChange={handleChange}
             ></InputText>
+          </div>
+          <div className="column">
+            <RefreshButton onClick={handleRefresh} isLoading={isLoading} />
           </div>
         </div>
         <div className="row">
